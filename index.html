@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Against Fluency - Presentation Visuals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="presentation-container">
+        <!-- Audio -->
+        <audio id="satie-audio" src="Satie_Gnossienne_1.mp3" loop preload="auto"></audio>
+        
+        <!-- State 1: Full-screen image -->
+        <div id="full-time-image" class="scene-element"></div>
+        
+        <!-- State 3: Memo section -->
+        <div id="memo-section" class="scene-element img-fragment"></div>
+        
+        <!-- State 9: Dumb figure -->
+        <div id="dumb-figure" class="scene-element img-fragment"></div>
+        
+        <!-- State 13: Job portion -->
+        <div id="job-portion" class="scene-element img-fragment"></div>
+        
+        <!-- State 17: Satie Portrait -->
+        <div id="satie-portrait" class="scene-element img-fragment"></div>
+        
+        <!-- State 19/21: Torn fragments -->
+        <div id="torn-fragments" class="scene-element"></div>
+        
+        <!-- Text Overlays -->
+        <div id="text-overlay" class="scene-element">
+            <!-- Ernaux Quote 1 -->
+            <div id="ernaux-1" class="quote text-hidden">
+                <p>I have brought to light the codes and conventions of the circles in which I lived. I have listed the different languages that enveloped me, forging the vision I had of myself and the outside world. Nowhere could I fit in that Sunday in June. <span class="highlight">What happened that day could not be put into words, in either of the worlds that was mine.</span></p>
+            </div>
+            
+            <!-- Ernaux Quote 2 -->
+            <div id="ernaux-2" class="quote text-hidden">
+                <p><span class="highlight">Naturally I shall not opt for narrative, which would mean inventing reality instead of searching for it.</span> Neither shall I content myself with merely picking out and transcribing the images I remember; I shall process them like documents, examining them from different angles to give them meaning. In other words, I shall carry out an ethnological study of myself.</p>
+            </div>
+            
+            <!-- Lorde Quote -->
+            <div id="lorde-quote" class="quote text-hidden">
+                <p>and when we speak we are afraid<br>
+                our words will not be heard<br>
+                nor welcomed<br>
+                but when we are silent<br>
+                we are <span id="word-still" class="interactive-word">still</span> afraid<br>
+                So it is better to speak</p>
+            </div>
+            
+            <!-- Staggered Words -->
+            <div id="staggered-words" class="quote text-hidden">
+                <ul>
+                    <li class="stag-word">illness</li>
+                    <li class="stag-word">pathology</li>
+                    <li class="stag-word">irrationality</li>
+                    <li class="stag-word">rebellion</li>
+                </ul>
+            </div>
+            
+            <!-- Blackburn Quote -->
+            <div id="blackburn-quote" class="quote text-hidden">
+                <p>Here, the institution has become <span class="highlight">as “natural” as sky, land, and empire</span>; nothing else exists. Or rather, we fail to imagine how we will fruitfully exist without naturalized imperial institutions.</p>
+            </div>
+            
+            <!-- Floating Words -->
+            <div id="floating-words" class="quote text-hidden">
+                <p class="float-word">Dreams</p>
+                <p class="float-word">Bodies</p>
+                <p class="float-word">Institutions</p>
+                <p class="float-word">Paintings</p>
+                <p class="float-word">Music</p>
+            </div>
+            
+            <!-- Beckett Quote -->
+            <div id="beckett-quote" class="quote text-hidden">
+                <p>You must go on, I can’t go on, I’ll go on.</p>
+            </div>
+            
+            <!-- Fluent Words -->
+            <div id="fluent-words" class="quote text-hidden">
+                <ul>
+                    <li class="fluent-word">fluent productivity</li>
+                    <li class="fluent-word">fluent identities</li>
+                    <li class="fluent-word">fluent narratives</li>
+                    <li class="fluent-word">fluent systems</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Dark Overlay for fades -->
+        <div id="dark-overlay" class="scene-element"></div>
+    </div>
+    
+    <!-- State Tracker Indicator (Debug) -->
+    <div id="state-indicator">State 1 / 26</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
