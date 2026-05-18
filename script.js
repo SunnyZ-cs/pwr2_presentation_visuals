@@ -2,6 +2,13 @@ let currentState = 1;
 const totalStates = 24; // Adjusted since two audio states were removed
 
 document.addEventListener('keydown', (e) => {
+    // Request fullscreen if not already active
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log("Fullscreen request failed:", err);
+        });
+    }
+
     if (e.code === 'Space') {
         e.preventDefault();
         if (currentState < totalStates) {
