@@ -1,6 +1,5 @@
 let currentState = 1;
-const totalStates = 26;
-const audio = document.getElementById('satie-audio');
+const totalStates = 24; // Adjusted since two audio states were removed
 
 document.addEventListener('keydown', (e) => {
     if (e.code === 'Space') {
@@ -22,6 +21,8 @@ function hideAllQuotes() {
         q.classList.remove('text-visible');
         q.classList.add('text-hidden');
     });
+    // Remove flash animation class so it can be retriggered if needed
+    document.querySelectorAll('.highlight').forEach(h => h.classList.remove('play-flash'));
 }
 
 function hideAllImages() {
@@ -57,10 +58,19 @@ function updateState(state) {
             break;
             
         case 2:
-            // State 2: Slow zoom upward toward hidden numbers bar
-            fullImage.style.transition = 'transform 8s cubic-bezier(0.25, 0.1, 0.25, 1)';
-            fullImage.style.transformOrigin = 'top center';
-            fullImage.style.transform = 'scale(2.5) translateY(10%)';
+            // State 2: Zoom to upper left first, then go from left end to right end of the top bar
+            fullImage.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            fullImage.style.transformOrigin = 'top left';
+            fullImage.style.transform = 'scale(2.5) translate(0%, 5%)'; // Zoom upper left
+            
+            // Wait 4 seconds for zoom, then pan right
+            setTimeout(() => {
+                // Check if we are still in state 2 to prevent async issues
+                if (currentState === 2) {
+                    fullImage.style.transition = 'transform 10s linear';
+                    fullImage.style.transform = 'scale(2.5) translate(-30%, 5%)'; // Pan right along the bar
+                }
+            }, 4000);
             break;
             
         case 3:
@@ -71,7 +81,9 @@ function updateState(state) {
             memoSection.style.transform = 'scale(1.2)';
             memoSection.style.transition = 'transform 10s ease-out, opacity 2s';
             setTimeout(() => {
-                memoSection.style.transform = 'scale(1) translate(5%, 0)';
+                if (currentState === 3) {
+                    memoSection.style.transform = 'scale(1) translate(5%, 0)';
+                }
             }, 100);
             break;
             
@@ -91,6 +103,9 @@ function updateState(state) {
                 const e1 = document.getElementById('ernaux-1');
                 e1.classList.remove('text-hidden');
                 e1.classList.add('text-visible');
+                // Trigger beige flash animation
+                const highlight = e1.querySelector('.highlight');
+                if (highlight) highlight.classList.add('play-flash');
             }, 1000);
             break;
             
@@ -101,6 +116,9 @@ function updateState(state) {
                 const e2 = document.getElementById('ernaux-2');
                 e2.classList.remove('text-hidden');
                 e2.classList.add('text-visible');
+                // Trigger beige flash animation
+                const highlight = e2.querySelector('.highlight');
+                if (highlight) highlight.classList.add('play-flash');
             }, 1000);
             break;
             
@@ -138,7 +156,7 @@ function updateState(state) {
             stagWords.forEach((word, index) => {
                 setTimeout(() => {
                     word.style.opacity = '1';
-                }, index * 1000);
+                }, index * 2500); // Slowed down
             });
             break;
             
@@ -159,6 +177,9 @@ function updateState(state) {
                 const blackburn = document.getElementById('blackburn-quote');
                 blackburn.classList.remove('text-hidden');
                 blackburn.classList.add('text-visible');
+                // Trigger beige flash animation
+                const highlight = blackburn.querySelector('.highlight');
+                if (highlight) highlight.classList.add('play-flash');
             }, 1000);
             break;
             
@@ -185,7 +206,7 @@ function updateState(state) {
             floatWords.forEach((word, index) => {
                 setTimeout(() => {
                     word.style.opacity = '1';
-                }, index * 1500);
+                }, index * 3000); // Slowed down significantly
             });
             break;
             
@@ -208,24 +229,10 @@ function updateState(state) {
             satiePortrait.style.opacity = '1';
             break;
             
-        case 18:
-            // State 18: Begin Gnossienne No.1 softly in background.
-            audio.volume = 0;
-            audio.play().catch(e => console.log("Audio play failed (maybe no interaction yet):", e));
-            // Fade in audio
-            let vol = 0;
-            const fadeIn = setInterval(() => {
-                if (vol < 0.6) {
-                    vol += 0.05;
-                    audio.volume = vol;
-                } else {
-                    clearInterval(fadeIn);
-                }
-            }, 200);
-            break;
+        // Old State 18 (Begin audio) removed as per instructions
             
-        case 19:
-            // State 19: Very slow fade between Satie portrait and fragments of Full Time. Gnossienne No.1 stops.
+        case 18:
+            // Was State 19: Very slow fade between Satie portrait and fragments of Full Time. 
             const portrait = document.getElementById('satie-portrait');
             portrait.style.transition = 'opacity 8s ease-in-out';
             portrait.style.opacity = '0';
@@ -234,22 +241,10 @@ function updateState(state) {
             fragments.style.transition = 'opacity 8s ease-in-out, transform 12s linear';
             fragments.style.opacity = '1';
             fragments.style.transform = 'scale(1) rotate(0deg)';
-            
-            // Fade out audio
-            let v = audio.volume;
-            const fadeOut = setInterval(() => {
-                if (v > 0.05) {
-                    v -= 0.05;
-                    audio.volume = v;
-                } else {
-                    clearInterval(fadeOut);
-                    audio.pause();
-                }
-            }, 200);
             break;
             
-        case 20:
-            // State 20: Words appear slowly one-by-one. (fluent productivity...)
+        case 19:
+            // Was State 20: Words appear slowly one-by-one. (fluent productivity...)
             hideAllImages();
             darkOverlay.style.opacity = '1';
             const fluentContainer = document.getElementById('fluent-words');
@@ -259,69 +254,45 @@ function updateState(state) {
             fluentWords.forEach((word, index) => {
                 setTimeout(() => {
                     word.style.opacity = '1';
-                }, index * 1200);
+                }, index * 2500); // Slowed down
             });
             break;
             
-        case 21:
-            // State 21: back to the "tore up" painting fragments shown before.
+        case 20:
+            // Was State 21: back to the "tore up" painting fragments shown before.
             clearStaggeredWords();
             hideAllQuotes();
             darkOverlay.style.opacity = '0';
             document.getElementById('torn-fragments').style.opacity = '1';
             break;
             
-        case 22:
-            // State 22: Return to full image of Full Time.
+        case 21:
+            // Was State 22: Return to full image of Full Time.
             hideAllImages();
             fullImage.style.opacity = '1';
             fullImage.style.transformOrigin = 'center center';
             fullImage.style.transform = 'scale(1) translate(0, 0)';
             break;
             
-        case 23:
-            // State 23: Image slowly darkens.
+        case 22:
+            // Was State 23: Image slowly darkens.
             darkOverlay.style.opacity = '0.6';
             darkOverlay.style.transition = 'opacity 6s ease-in-out';
             break;
             
-        case 24:
-            // State 24: Final slow zoom into textured surface until details become almost abstract.
+        case 23:
+            // Was State 24: Final slow zoom into textured surface until details become almost abstract.
             fullImage.style.transition = 'transform 20s cubic-bezier(0.25, 0.1, 0.25, 1)';
             fullImage.style.transformOrigin = 'center center';
             fullImage.style.transform = 'scale(5) translate(0%, 0%)';
             break;
             
-        case 25:
-            // State 25: Gnossienne No.1 continues.
-            audio.volume = 0;
-            audio.play().catch(e => console.log(e));
-            let finalVol = 0;
-            const finalFadeIn = setInterval(() => {
-                if (finalVol < 0.5) {
-                    finalVol += 0.05;
-                    audio.volume = finalVol;
-                } else {
-                    clearInterval(finalFadeIn);
-                }
-            }, 200);
-            break;
+        // Old State 25 (Audio continues) removed as per instructions
             
-        case 26:
-            // State 26: screen fades to black and music gradually fades away.
+        case 24:
+            // Was State 26: screen fades to black
             darkOverlay.style.opacity = '1';
             darkOverlay.style.transition = 'opacity 8s ease-in-out';
-            
-            let fadeOutVol = audio.volume;
-            const finalFadeOut = setInterval(() => {
-                if (fadeOutVol > 0.02) {
-                    fadeOutVol -= 0.02;
-                    audio.volume = fadeOutVol;
-                } else {
-                    clearInterval(finalFadeOut);
-                    audio.pause();
-                }
-            }, 400); // 8 seconds roughly
             break;
     }
 }
