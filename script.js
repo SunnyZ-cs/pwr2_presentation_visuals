@@ -299,11 +299,21 @@ function updateState(state) {
 
 // Initialize state 1 on load
 document.getElementById('start-screen').addEventListener('click', function() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
-            console.log("Fullscreen request failed:", err);
-        });
+    const elem = document.documentElement;
+    try {
+        if (elem.requestFullscreen) {
+            const promise = elem.requestFullscreen();
+            if (promise) promise.catch(err => console.log(err));
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    } catch (err) {
+        console.log("Fullscreen request failed:", err);
     }
+
+    this.style.transition = 'opacity 1s ease';
     this.style.opacity = '0';
     setTimeout(() => {
         this.style.display = 'none';
