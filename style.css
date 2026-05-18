@@ -92,12 +92,12 @@ body, html {
 
 .quote .highlight.play-flash {
     transform: scale(1.05);
-    animation: glowFlash 3s ease-in-out infinite alternate;
+    animation: glowFlash 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes glowFlash {
-    0% { text-shadow: none; color: #fff; }
-    100% { text-shadow: 0 0 15px rgba(245, 245, 220, 0.8); color: #f5f5dc; }
+    0% { text-shadow: 0 0 5px rgba(245, 245, 220, 0.5); color: #fdfdf0; }
+    100% { text-shadow: 0 0 20px rgba(245, 245, 220, 1); color: #f5f5dc; }
 }
 
 .citation {
