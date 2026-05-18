@@ -2,13 +2,6 @@ let currentState = 1;
 const totalStates = 24; // Adjusted since two audio states were removed
 
 document.addEventListener('keydown', (e) => {
-    // Request fullscreen if not already active
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
-            console.log("Fullscreen request failed:", err);
-        });
-    }
-
     if (e.code === 'Space') {
         e.preventDefault();
         if (currentState < totalStates) {
@@ -305,6 +298,15 @@ function updateState(state) {
 }
 
 // Initialize state 1 on load
-window.onload = () => {
+document.getElementById('start-screen').addEventListener('click', function() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log("Fullscreen request failed:", err);
+        });
+    }
+    this.style.opacity = '0';
+    setTimeout(() => {
+        this.style.display = 'none';
+    }, 1000);
     updateState(currentState);
-};
+});
