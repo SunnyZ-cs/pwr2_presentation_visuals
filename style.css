@@ -87,17 +87,18 @@ body, html {
 .quote .highlight {
     font-weight: 700;
     display: inline-block;
-    transition: transform 1.5s ease-in-out;
+    transition: all 1s ease;
 }
 
 .quote .highlight.play-flash {
-    transform: scale(1.05);
-    animation: glowFlash 1.5s ease-in-out infinite alternate;
+    animation: gentleJump 4s ease-in-out forwards;
 }
 
-@keyframes glowFlash {
-    0% { text-shadow: 0 0 5px rgba(245, 245, 220, 0.5); color: #fdfdf0; }
-    100% { text-shadow: 0 0 20px rgba(245, 245, 220, 1); color: #f5f5dc; }
+@keyframes gentleJump {
+    0% { transform: scale(1); text-shadow: none; color: #fff; }
+    20% { transform: scale(1.03); text-shadow: 0 0 15px rgba(245, 245, 220, 0.8); color: #f5f5dc; }
+    80% { transform: scale(1.03); text-shadow: 0 0 15px rgba(245, 245, 220, 0.8); color: #f5f5dc; }
+    100% { transform: scale(1); text-shadow: none; color: #fff; }
 }
 
 .citation {
