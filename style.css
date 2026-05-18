@@ -90,6 +90,7 @@ body, html {
 
 #text-overlay {
     opacity: 1; /* Overlay container is always visible, children fade */
+    z-index: 20;
 }
 
 .text-hidden {
@@ -107,8 +108,21 @@ body, html {
 .interactive-word.active {
     font-weight: 700;
     color: #ffeb3b;
-    font-size: 3rem;
+    font-size: 5rem;
+    transform: scale(1.5);
+    display: inline-block;
     text-shadow: 0 0 20px rgba(255, 235, 59, 0.8);
+}
+
+.word-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    pointer-events: none;
+    transition: opacity 1.5s ease-in-out;
 }
 
 ul {
@@ -134,10 +148,20 @@ ul {
 .float-word:nth-child(5) { top: 30%; left: 70%; }
 
 /* Staggered words for state 10 */
-#staggered-words {
-    background: transparent;
-    border: none;
-    left: 20%;
+#staggered-words ul {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+    text-align: right;
+}
+
+#fluent-words ul {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 /* Dark overlay */

@@ -288,8 +288,8 @@ function updateState(state) {
         case 24:
             // State 24: Final slow zoom into textured surface until details become almost abstract.
             fullImage.style.transition = 'transform 20s cubic-bezier(0.25, 0.1, 0.25, 1)';
-            fullImage.style.transformOrigin = 'bottom left';
-            fullImage.style.transform = 'scale(5) translate(20%, -10%)';
+            fullImage.style.transformOrigin = 'center center';
+            fullImage.style.transform = 'scale(5) translate(0%, 0%)';
             break;
             
         case 25:
