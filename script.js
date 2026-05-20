@@ -227,6 +227,22 @@ function updateState(state) {
             darkOverlay.style.opacity = '0';
             const satiePortrait = document.getElementById('satie-portrait');
             satiePortrait.style.opacity = '1';
+            
+            // Start Audio
+            const audio = document.getElementById('satie-audio');
+            if (audio) {
+                audio.volume = 0;
+                audio.play().catch(e => console.log("Audio play failed:", e));
+                let vol = 0;
+                const fadeIn = setInterval(() => {
+                    if (vol < 0.6) {
+                        vol += 0.05;
+                        audio.volume = vol;
+                    } else {
+                        clearInterval(fadeIn);
+                    }
+                }, 200);
+            }
             break;
             
         // Old State 18 (Begin audio) removed as per instructions
@@ -264,6 +280,21 @@ function updateState(state) {
             hideAllQuotes();
             darkOverlay.style.opacity = '0';
             document.getElementById('torn-fragments').style.opacity = '1';
+            
+            // Fade out Audio
+            const audioOut = document.getElementById('satie-audio');
+            if (audioOut) {
+                let v = audioOut.volume;
+                const fadeOut = setInterval(() => {
+                    if (v > 0.05) {
+                        v -= 0.05;
+                        audioOut.volume = v;
+                    } else {
+                        clearInterval(fadeOut);
+                        audioOut.pause();
+                    }
+                }, 200);
+            }
             break;
             
         case 21:
